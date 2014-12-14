@@ -1,2 +1,3 @@
-Digit Recognition的kNN解法
-详细的解析请参考我的blog：
+Digit Recognition鐨刱NN瑙ｆ硶
+
+璇︾粏鐨勮В鏋愯鍙傝�冩垜鐨刡log锛歨ttp://blog.csdn.net/u012162613
