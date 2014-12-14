@@ -1,0 +1,2 @@
+Digit Recognition的kNN解法
+详细的解析请参考我的blog：
