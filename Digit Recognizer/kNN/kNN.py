@@ -60,6 +60,7 @@ def loadTestResult():
     label=array(l)
     return toInt(label[:,1])  #  label 28000*1
 
+#dataSet:m*n   labels:m*1  inX:1*n
 def classify(inX, dataSet, labels, k):
     inX=mat(inX)
     dataSet=mat(dataSet)
@@ -72,7 +73,7 @@ def classify(inX, dataSet, labels, k):
     sortedDistIndicies = distances.argsort()            
     classCount={}                                      
     for i in range(k):
-        voteIlabel = labels[0,sortedDistIndicies[i]]
+        voteIlabel = labels[sortedDistIndicies[i],0]
         classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
     sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
     return sortedClassCount[0][0]
@@ -94,10 +95,14 @@ def handwritingClassTest():
     errorCount=0
     resultList=[]
     for i in range(m):
-         classifierResult = classify(testData[i], trainData, trainLabel, 5)
+         classifierResult = classify(testData[i], trainData, trainLabel.transpose(), 5)
          resultList.append(classifierResult)
          print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, testLabel[0,i])
          if (classifierResult != testLabel[0,i]): errorCount += 1.0
     print "\nthe total number of errors is: %d" % errorCount
     print "\nthe total error rate is: %f" % (errorCount/float(m))
     saveResult(resultList)
+'''    
+trainData[0:20000], trainLabel.transpose()[0:20000]
+get 20000 of the 42000 samples to train
+'''
