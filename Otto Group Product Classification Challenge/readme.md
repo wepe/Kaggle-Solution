@@ -35,3 +35,12 @@
 - Adaboost.py
 
 	未调参。
+
+
+
+
+代码使用
+--
+从官网下载train.csv、test.csv，与preprocess.py、RandomForest.py放在同一个目录下，直接运行RandomForest.py即可。(其他分类文件同理。)
+
+
