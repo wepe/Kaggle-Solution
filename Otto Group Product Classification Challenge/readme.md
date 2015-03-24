@@ -2,13 +2,15 @@
 -----
 ###1、依赖库/软件
 - sklearn
-- NumPy
+- numpy
 
 
 ###2、数据预处理
 - preprocess.py   
 	
-	数据预处理。包括加载训练数据集、测试数据集、归一化、零均值化。此外还定义了生成submission.csv的函数。
+	一些预处理工作。定义了以下通用函数：加载训练数据集的函数loadTrainSet()、加载测试数据集的函数loadTestSet()、评估模型logloss值的函数evaluation()、生成提交文件submission.csv的函数saveResult()。
+
+	数据经过归一化、零均值化。
 
 
 
@@ -16,11 +18,11 @@
 
 - KNN
 
-	K近邻算法，效果很差。又费时又费内存。没调过参数。『放弃』
+	K近邻算法，效果较差。费时又费内存。k=20时，logloss约为1。『放弃』
 
 - RandomForest.py
 
-	随机森林，调参中。beat the benchmark
+	随机森林，n_estimators=400时，logloss约为0.55。
 
 - ExtraTrees.py
 

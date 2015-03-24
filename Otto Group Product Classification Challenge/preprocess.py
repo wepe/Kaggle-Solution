@@ -1,7 +1,6 @@
 #-*- coding:utf8 -*-#
 """
-Created on 2015/03/22
-
+Created on 2015/03/23
 Data preprocessing for Kaggle competition "Otto Group Product Classification Challenge". 
 
 @author:wepon
@@ -63,32 +62,29 @@ def loadTestSet():
 	return testdata
 
 
+#Evaluation function
+#Refer to:https://www.kaggle.com/c/otto-group-product-classification-challenge/details/evaluation
+def evaluation(label,pred_label):
+	num = len(label)
+	logloss = 0.0
+	for i in range(num):
+		p = max(min(pred_label[i][label[i]-1],1-10**(-15)),10**(-15))
+		logloss += np.log(p)
+	logloss = -1*logloss/num
+	return logloss
 
 
 #save result as csv file
 def saveResult(testlabel,filename = "submission.csv"):
-	label_table={
-		1:[1,0,0,0,0,0,0,0,0],
-		2:[0,1,0,0,0,0,0,0,0],
-		3:[0,0,1,0,0,0,0,0,0],
-		4:[0,0,0,1,0,0,0,0,0],
-		5:[0,0,0,0,1,0,0,0,0],
-		6:[0,0,0,0,0,1,0,0,0],
-		7:[0,0,0,0,0,0,1,0,0],
-		8:[0,0,0,0,0,0,0,1,0],
-		9:[0,0,0,0,0,0,0,0,1]
-		}
 	with open(filename,'wb') as myFile:
 		myWriter=csv.writer(myFile)
 		myWriter.writerow(["id","Class_1","Class_2","Class_3","Class_4","Class_5","Class_6","Class_7","Class_8","Class_9"])
 		id_num = 1
-		for i in testlabel:
+		for eachlabel in testlabel:
 			l = []
 			l.append(id_num)
-			l.extend(label_table.get(i))
+			l.extend(eachlabel)
 			myWriter.writerow(l)
 			id_num += 1
-
-
 
 
