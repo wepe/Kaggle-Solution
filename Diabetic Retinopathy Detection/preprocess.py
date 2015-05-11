@@ -35,14 +35,14 @@ def crop(img):
 	img = Image.fromarray(newarray,"RGB")
 	return img
 
-#输入的img大小是256*height，整成256*256
-#width=256,height可能大于256可能小于256
+#输入的img大小是64*height，整成64*64
+#width=64,height可能大于64可能小于64
 def tosquare(img):
 	width,height = img.size   
 	if height<width:
 		black_len = (width - height)/2
 		imgarray = np.asarray(img)
-		newarray = np.zeros((256,256,3),dtype="uint8")
+		newarray = np.zeros((64,64,3),dtype="uint8")
 		newarray[black_len:black_len+height,:,:]=imgarray[:,:,:]
 		img = Image.fromarray(newarray,"RGB")
 	if height>width:
@@ -52,23 +52,20 @@ def tosquare(img):
 	return img
 
 
-
+#"./train"原始训练数据，对测试数据"./test"做同样的预处理
 if __name__ == "__main__":
-
-	direction = "/home/wepon/train"
-	save_path = "/home/wepon/train_smallsize"
+	direction = "./train"
+	save_path = "./train_RGB64"
 	if not os.path.exists(save_path):
 		os.makedirs(save_path)
-
 	imglist = os.listdir(direction)
-	os.chdir(save_path)   				     #改变路径到保存新图片的文件夹下
-	for i in range(len(imglist)):
+	for i in xrange(len(imglist)):
 		imgname = imglist[i]
 		print imgname
 		img = Image.open(direction+"/"+imgname)      
 		img = crop(img)				     #截取图像，去除黑边
 		width,height = img.size
-		img = img.resize((256,256*height/width))     #resize image,保留宽高比
-		img = tosquare(img)			     #整成正方形256*256*3
-		img.save(imgname)
+		img = img.resize((64,64*height/width))     #resize image,保留宽高比
+		img = tosquare(img)			     #整成正方形64*64*3
+		img.save(save_path+"/"+imgname)
 	
