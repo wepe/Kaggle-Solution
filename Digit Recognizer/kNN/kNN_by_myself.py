@@ -79,7 +79,7 @@ def classify(inX, dataSet, labels, k):
     return sortedClassCount[0][0]
 
 def saveResult(result):
-    with open('result.csv','wb') as myFile:    
+    with open('result.csv','w') as myFile:    
         myWriter=csv.writer(myFile)
         for i in result:
             tmp=[]
