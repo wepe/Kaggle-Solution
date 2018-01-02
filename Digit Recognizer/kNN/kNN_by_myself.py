@@ -75,11 +75,11 @@ def classify(inX, dataSet, labels, k):
     for i in range(k):
         voteIlabel = labels[sortedDistIndicies[i],0]
         classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
-    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
+    sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)
     return sortedClassCount[0][0]
 
 def saveResult(result):
-    with open('result.csv','wb') as myFile:    
+    with open('result.csv','w') as myFile:    
         myWriter=csv.writer(myFile)
         for i in result:
             tmp=[]
@@ -97,10 +97,10 @@ def handwritingClassTest():
     for i in range(m):
          classifierResult = classify(testData[i], trainData, trainLabel.transpose(), 5)
          resultList.append(classifierResult)
-         print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, testLabel[0,i])
+         print ("the classifier came back with: " + str(classifierResult) + ", the real answer is: " + str(testLabel[0,i]))
          if (classifierResult != testLabel[0,i]): errorCount += 1.0
-    print "\nthe total number of errors is: %d" % errorCount
-    print "\nthe total error rate is: %f" % (errorCount/float(m))
+    print ("the total number of errors is: " + str(errorCount))
+    print ("the total error rate is: " + str((errorCount/float(m))))
     saveResult(resultList)
 '''    
 trainData[0:20000], trainLabel.transpose()[0:20000]
